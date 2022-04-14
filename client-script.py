@@ -14,8 +14,11 @@ socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5555")
 
 
+script = b""
 
-socket.send(b"time.sleep(1)\ncar.steering_gain = -0.65\ncar.steering_offset = -0.25\nif car.steering_offset != -0.25 : exit()\ncar.throttle = -0.5\ntime.sleep(15)")
+script = script.replace("#","\n")
+
+socket.send(script)
 
 #  Get the reply.
 message = socket.recv()

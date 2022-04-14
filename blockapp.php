@@ -23,16 +23,16 @@
 // Définition des paramètres PHP 
 
 $actions = [    // val min, val max, unité, type d'action, action
-    "Démarrer" => array(null,null,null,"setting","from jetracer.nvidia_racecar import NvidiaRacecar<br/>import time<br/>import sys<br/><br/>car = NvidiaRacecar()<br>time.sleep(1)<br/>car.steering_gain = -0.65<br/>car.steering_offset = -0.25<br/>if car.steering_offset != -0.25 : exit()<br/>"),
-    "Avancer" => array(1,9,"s","movement","car.throttle = -0.5<br/>time.sleep(VAR)"),
-    "Reculer" => array(1,9,"s","movement","car.throttle = 0.5<br/>time.sleep(VAR)"),
-    "S'arrêter" => array(null,null,null,"movement","car.throttle = 0.001<br/>car.throttle = 0"),
+    "Démarrer" => array(null,null,null,"setting","import zmq<br/>context = zmq.Context()<br/>print('Connecting to hello world server…')<br/>socket = context.socket(zmq.REQ)<br/>socket.connect('tcp://localhost:5555')<br/>script = b\""),
+    "Avancer" => array(1,9,"s","movement","car.throttle = -0.5#time.sleep(VAR)"),
+    "Reculer" => array(1,9,"s","movement","car.throttle = 0.5#time.sleep(VAR)"),
+    "S'arrêter" => array(null,null,null,"movement","car.throttle = 0.001#car.throttle = 0"),
     "Tourner à gauche" => array(null, null, null,"movement","car.steering = 1"),
     "Tourner à droite" => array(null, null, null,"movement","car.steering = -1"),
-    "Reset direction" => array(null, null, null,"movement","car.steering = 0.001<br/>car.steering = 0"),
+    "Reset direction" => array(null, null, null,"movement","car.steering = 0.001#car.steering = 0"),
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
     "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
-    "Fin" => array(null,null,null,"setting","sys.exit('Fin du programme')"),
+    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('#','\n')<br>socket.send(script)<br>message = socket.recv()<br>print(\"Received reply [ %s ]\" % (message))"),
     "Si" => array("test1","test2",null,"control","if VAR == true:"),
     "Sinon" => array(null,null,null,"control","else:"),
     "Fin du Si" => array(null,null,null,"control"," "),
@@ -95,7 +95,7 @@ $file = '/KDesir_Tests/projet.py';
 			//$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
 			$output = $_COOKIE['output'];
 			$output = str_replace("<br/>","\n",$output);
-			$output = str_replace("<br>","\n",$output);
+			//$output = str_replace("#","\n",$output);
 			$myfile = fopen($file, "w");
 			fwrite($myfile, $output);
 			fclose($myfile);
@@ -247,7 +247,7 @@ $file = '/KDesir_Tests/projet.py';
                     PythonScript = PythonScript.replaceAll("<br/>","<br/>"+"---".repeat(indent)); // Ajout des espaces
 
                     output += "---".repeat(indent) + PythonScript;            
-                    output += "<br/>";
+                    output += "#";
 
                     if(action == "Si" || action == "Sinon"){
                         indent += 1;
