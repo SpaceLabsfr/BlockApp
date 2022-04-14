@@ -1,0 +1,129 @@
+body {
+    background-image: url('img/Unsplash/GenericBackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.emplacement {
+    width: 250px;
+    display: inline-block;
+    justify-content: center;
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    vertical-align: top;
+    margin: 10px;
+}
+
+.resultat {
+    display: inline-block;
+    min-width: 25%;
+    justify-content: center;
+    /*border: 2px solid rgb(100, 100, 100);
+        padding: 30px 20px;
+*/
+    border-radius: 30px;
+    vertical-align: top;
+}
+
+.bloc {
+    border: 2px solid rgb(100, 100, 100);
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    border-radius: 20px;
+    width: 230px;
+    height: 65px;
+    vertical-align: top;
+}
+
+.section {
+    margin: auto;
+    padding: 8px;
+    border: gray 2px solid;
+    background-color: rgba(0, 118, 220, 0.1);
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+p,
+h1,
+h2,
+h3 {
+    color: wheat;
+}
+
+.setting p {
+    background-color: rgb(83, 90, 95);
+}
+
+.movement p {
+    background-color: rgba(0, 118, 255);
+}
+
+.control p {
+    background-color: rgba(118, 50, 60);
+}
+
+input[type=number],
+select {
+    text-align: right;
+    width: 31px;
+    height: 35px;
+    background-color: rgba(55, 55, 255, 0.55);
+    border: solid 1px rgba(10, 10, 10, 0.7);
+    border-radius: 11px;
+    margin-right: 5px;
+}
+
+select {
+    width: fit-content;
+    background-color: rgba(205, 235, 255, 0.6);
+    text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.action {
+    border: 2px solid rgb(30, 30, 30);
+    margin: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: rgba(0, 118, 255);
+    text-align: center;
+}
+
+.delete {
+    position: relative;
+    margin-top: 20px;
+    width: auto;
+    height: 30px;
+    opacity: 0.9;
+    float: right;
+    background-color: gray;
+}
+
+.delete img {
+    width: 20px;
+    margin-top: 5px;
+}
+
+.delete:hover {
+    margin-top: 20px;
+    width: auto;
+    height: 30px;
+    opacity: 0.8;
+    float: right;
+}
+
+#origin {
+    position: fixed;
+}
+
+#trame {
+    margin-left: 270px;
+}
