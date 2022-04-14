@@ -32,7 +32,7 @@ $actions = [    // val min, val max, unité, type d'action, action
     "Reset direction" => array(null, null, null,"movement","car.steering = 0.001#car.steering = 0"),
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
     "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
-    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('#','\\n')<br/>socket.send(script)<br/>message = socket.recv()<br/>print(\"Received reply [ %s ]\" % (message))"),
+    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('\\n','\\n')<br/>socket.send(script)<br/>message = socket.recv()<br/>print(\"Received reply [ %s ]\" % (message))"),
     "Si" => array("test1","test2",null,"control","if VAR == true:"),
     "Sinon" => array(null,null,null,"control","else:"),
     "Fin du Si" => array(null,null,null,"control"," "),
@@ -41,8 +41,8 @@ $actions = [    // val min, val max, unité, type d'action, action
 $nb_emplacements = 5;
 
 //$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
-//$file = '/KDesir_Tests/projet.py';
-$file = 'C:\wamp\www\BlockApp\projet.py';
+$file = '/KDesir_Tests/projet.py';
+//$file = 'C:\wamp\www\BlockApp\projet.py';
 ?>
 
 <body>
@@ -87,7 +87,7 @@ $file = 'C:\wamp\www\BlockApp\projet.py';
     <div class="resultat">
     <button class="submit" onclick="generate()">Valider</button>
 
-    <form method="POST" > <!-- action="/#" pour empêcher de re-exécuter lorsqu'on rafraîchit -->
+    <form method="POST" > <!-- action="/\\n" pour empêcher de re-exécuter lorsqu'on rafraîchit -->
         <br/><input type="submit" name="sauvegarder" value="Exécuter" >
     </form>
 
@@ -95,7 +95,7 @@ $file = 'C:\wamp\www\BlockApp\projet.py';
 		if(isset($_POST['sauvegarder'])) {
 			$output = $_COOKIE['output'];
 			$output = str_replace("<br/>","\n",$output);
-			//$output = str_replace("#","\n",$output);
+			//$output = str_replace("\\n","\n",$output);
 			$myfile = fopen($file, "w");
 			fwrite($myfile, $output);
 			fclose($myfile);
@@ -161,7 +161,7 @@ $file = 'C:\wamp\www\BlockApp\projet.py';
 
         var origin_id = ev.dataTransfer.getData("Origin")
     
-        if (!ev.target.id || ev.target.childNodes[0].nodeName == "#text") {
+        if (!ev.target.id || ev.target.childNodes[0].nodeName == "\\ntext") {
             // Si on drop pas dans une case prévue à cet effet...
             console.log("Oups, vous n'avez pas posé le block dans un emplacement valide !");
             // Exemple : La croix, ou une case avec un block, ou un block
