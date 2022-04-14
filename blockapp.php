@@ -23,7 +23,7 @@
 // Définition des paramètres PHP 
 
 $actions = [    // val min, val max, unité, type d'action, action
-    "Démarrer" => array(null,null,null,"setting","import zmq<br/>context = zmq.Context()<br/>print('Connecting to hello world server…')<br/>socket = context.socket(zmq.REQ)<br/>socket.connect('tcp://localhost:5555')<br/>script = b\""),
+    "Démarrer" => array(null,null,null,"setting","import zmq<br/>context = zmq.Context()<br/>print('Connecting to hello world server…')<br/>socket = context.socket(zmq.REQ)<br/>socket.connect('tcp://localhost:5555')<br/>string = \""),
     "Avancer" => array(1,9,"s","movement","car.throttle = -0.5#time.sleep(VAR)"),
     "Reculer" => array(1,9,"s","movement","car.throttle = 0.5#time.sleep(VAR)"),
     "S'arrêter" => array(null,null,null,"movement","car.throttle = 0.001#car.throttle = 0"),
@@ -32,7 +32,7 @@ $actions = [    // val min, val max, unité, type d'action, action
     "Reset direction" => array(null, null, null,"movement","car.steering = 0.001#car.steering = 0"),
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
     "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
-    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('\\n','\\n')<br/>socket.send(script)<br/>message = socket.recv()<br/>print(\"Received reply [ %s ]\" % (message))"),
+    "Fin" => array(null,null,null,"setting","\"<br/>string = string.replace('#','\\n')<br/>script = bytes(string)<br/>socket.send(script)<br/>message = socket.recv()<br/>print(\"Received reply [ %s ]\" % (message))"),
     "Si" => array("test1","test2",null,"control","if VAR == true:"),
     "Sinon" => array(null,null,null,"control","else:"),
     "Fin du Si" => array(null,null,null,"control"," "),
