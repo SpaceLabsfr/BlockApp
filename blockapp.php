@@ -32,7 +32,7 @@ $actions = [    // val min, val max, unité, type d'action, action
     "Reset direction" => array(null, null, null,"movement","car.steering = 0.001#car.steering = 0"),
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
     "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
-    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('#','\n')<br>socket.send(script)<br>message = socket.recv()<br>print(\"Received reply [ %s ]\" % (message))"),
+    "Fin" => array(null,null,null,"setting","\"<br/>script = script.replace('#','\\n')<br/>socket.send(script)<br/>message = socket.recv()<br/>print(\"Received reply [ %s ]\" % (message))"),
     "Si" => array("test1","test2",null,"control","if VAR == true:"),
     "Sinon" => array(null,null,null,"control","else:"),
     "Fin du Si" => array(null,null,null,"control"," "),
@@ -41,7 +41,8 @@ $actions = [    // val min, val max, unité, type d'action, action
 $nb_emplacements = 5;
 
 //$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
-$file = '/KDesir_Tests/projet.py';
+//$file = '/KDesir_Tests/projet.py';
+$file = 'C:\wamp\www\BlockApp\projet.py';
 ?>
 
 <body>
@@ -92,7 +93,6 @@ $file = '/KDesir_Tests/projet.py';
 
 	<?php 
 		if(isset($_POST['sauvegarder'])) {
-			//$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
 			$output = $_COOKIE['output'];
 			$output = str_replace("<br/>","\n",$output);
 			//$output = str_replace("#","\n",$output);
@@ -100,9 +100,9 @@ $file = '/KDesir_Tests/projet.py';
 			fwrite($myfile, $output);
 			fclose($myfile);
 
-			shell_exec('sudo python3 /KDesir_Tests/projet.py');
+			//shell_exec('sudo python3 /KDesir_Tests/projet.py');
 			//echo shell_exec('sudo python3 /KDesir_Tests/projet.py 2>&1'); //for debug
-			echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
+			//echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
 		}
 	?>
     <div class="section">
