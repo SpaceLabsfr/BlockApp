@@ -102,7 +102,7 @@ $file = '/KDesir_Tests/projet.py';
 
 			shell_exec('sudo python3 /KDesir_Tests/projet.py');
 			//echo shell_exec('sudo python3 /KDesir_Tests/projet.py 2>&1'); //for debug
-			//echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
+			echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
 		}
 	?>
     <div class="section">
