@@ -8,6 +8,7 @@ context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind("tcp://*:5555")
 
+
 currentlyRunning = Value('b', False)
 
 def RunScript(script, data):
@@ -20,6 +21,10 @@ def RunScript(script, data):
 	print(f"currentlyRunning from process {currentlyRunning.value}")
 
 car = NvidiaRacecar()
+car.steering_gain = -0.65
+car.steering_offset = -0.25
+if car.steering_offset != -0.25 : exit()
+
 print("Car ready")
 
 while True:
@@ -30,6 +35,8 @@ while True:
 		message = message.decode("utf-8")
 		#print("Received request: %s" % message)
 		
+		print(message)
+
 		if "ArretUrgence" in message:
 			runThread.terminate() # sends a SIGTERM
 			#socket.send(b"AU_Done")
@@ -49,7 +56,5 @@ while True:
 		print(e)
 		car.throttle = 0.001
 		car.throttle = 0
-        
-	time.sleep(1) # vérifier si on a toujours besoin de ça
 
 sys.exit("Fin du programme")
