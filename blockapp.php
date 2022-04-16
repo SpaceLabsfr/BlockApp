@@ -102,7 +102,7 @@ $client = '/KDesir_Tests/client-script.py';
 			fclose($myfile);
 
 			//shell_exec('sudo python3 /KDesir_Tests/projet.py');
-			echo shell_exec('sudo python3 /KDesir_Tests/client-script.py 2>&1'); //for debug
+			echo shell_exec("sudo python3 $client 2>&1"); //for debug
 			//echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
 		}
 	?>
