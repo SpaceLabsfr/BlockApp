@@ -1,22 +1,14 @@
-#
-#   Hello World client in Python
-#   Connects REQ socket to tcp://localhost:5555
-#   Sends "Hello" to server, expects "World" back
-#
-
 import zmq
 
 context = zmq.Context()
 
 #  Socket to talk to server
-print("Connecting to hello world server…")
+print("Connecting to hello world server")
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5555")
 
-
-script = b""
-
-script = script.replace("#","\n")
+f = open("/KDesir_Tests/projet.py", "r")
+script = bytes(f.read(), 'utf-8')
 
 socket.send(script)
 
