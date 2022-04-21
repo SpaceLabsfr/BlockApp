@@ -10,7 +10,7 @@
 21/04/2022-15:16:18,ArretUrgence
 21/04/2022-15:16:31,car.throttle = -0.5
 21/04/2022-15:16:31,time.sleep(1)
-21/04/2022-15:16:34,ArretUrgence
+21/04/2022-15:16:34,ArretObstacle
 21/04/2022-15:17:36,car.steering = 1
 21/04/2022-15:17:36,car.steering = -1
 21/04/2022-15:17:36,car.steering = 0.001
@@ -21,3 +21,4 @@
 21/04/2022-15:17:36,car.throttle = 0
 21/04/2022-15:17:36,car.steering = 0.001
 21/04/2022-15:17:36,car.steering = 0
+21/04/2022-15:17:48,ArretUrgence
