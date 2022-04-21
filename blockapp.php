@@ -247,8 +247,11 @@ $client = '/KDesir_Tests/client-script.py';
 
                     PythonScript = PythonScript.replaceAll("<br/>","<br/>"+"---".repeat(indent)); // Ajout des espaces
 
-                    output += "---".repeat(indent) + PythonScript;            
-                    output += "<br/>";
+                    output += "---".repeat(indent) + PythonScript;    
+		    if (i < element.length -2) {
+                        output += "<br/>";
+		    }        
+
 
                     if(action == "Si" || action == "Sinon"){
                         indent += 1;
