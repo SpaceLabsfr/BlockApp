@@ -89,10 +89,14 @@ $client = '/KDesir_Tests/client-script.py';
     <button class="submit" onclick="generate()">Valider</button>
 
     <form method="POST" > <!-- action="/\\n" pour empêcher de re-exécuter lorsqu'on rafraîchit -->
-        <br/><input type="submit" name="sauvegarder" value="Exécuter" >
+    <br/><input type="submit" name="sauvegarder" value="Exécuter" >
+    <br/><input type="submit" name="arreter" style="background-color: rgba(118, 50, 60);" value="Arrêt d'urgence" >
     </form>
 
 	<?php 
+        if(isset($_POST['arreter'])) {
+            echo shell_exec("sudo python3 client-arret-urgence.py"); //for debug
+        }
 		if(isset($_POST['sauvegarder'])) {
 			$output = $_COOKIE['output'];
 			$output = str_replace("<br/>","\n",$output);
@@ -105,6 +109,7 @@ $client = '/KDesir_Tests/client-script.py';
 			echo shell_exec("sudo python3 $client 2>&1"); //for debug
 			//echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
 		}
+        
 	?>
     <div class="section">
         <div class="big">
