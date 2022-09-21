@@ -4,12 +4,15 @@
     font-size: 18px;
 }
 
+.container{
+    display: flex;
+    justify-content: flex-start;
+}
 .left {
     float: left;
     width: 60%;
     max-width: 1300px;
     padding: 0 30px;
-    overflow: hidden;
     color: white;
     background: rgba(20, 20, 20, 0.8);
     border-radius: 45px;
@@ -61,7 +64,6 @@ button:hover {
     background: rgba(20, 20, 20, 0.8);
     max-width: 380px;
     min-width: 240px;
-    overflow: hidden;
     border-radius: 45px;
     padding: 0 20px;
     border-color: transparent;
@@ -72,7 +74,6 @@ button:hover {
     width: 20px;
     height: 45px;
     border-radius: 1000px;
-    float: left;
 }
 
 .socialsimg {
@@ -82,3 +83,11 @@ button:hover {
 
 }
 
+
+@media screen and (max-width: 780px)
+{
+    .container{  
+        display: block;
+        text-align: center;
+    }
+}

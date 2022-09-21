@@ -1,6 +1,9 @@
-import zmq
-context = zmq.Context()
-print('Connecting to hello world server…')
-socket = context.socket(zmq.REQ)
-socket.connect('tcp://localhost:5555')
-script = b"#car.throttle = -0.5#time.sleep(1)#car.steering = -1#
+car.throttle = 0.001
+car.throttle = 0
+for i in range(3) :
+   car.throttle = -0.5
+   time.sleep(1)
+   car.steering = 1
+    
+car.throttle = 0.001
+car.throttle = 0

@@ -17,13 +17,13 @@ body {
 
 .resultat {
     display: inline-block;
-    min-width: 25%;
+    min-width: 35%;
     justify-content: center;
-    /*border: 2px solid rgb(100, 100, 100);
-        padding: 30px 20px;
-*/
+    border: 2px solid rgb(100, 100, 100);
+    padding: 30px 20px;
     border-radius: 30px;
     vertical-align: top;
+    height: fit-content;
 }
 
 .bloc {
@@ -70,15 +70,19 @@ select {
     text-align: right;
     width: 31px;
     height: 35px;
-    background-color: rgba(55, 55, 255, 0.55);
+    color: wheat;
+    font-weight: bold;
+    padding-right: 3px;
+    background-color: rgba(55, 55, 255, 0.5);
     border: solid 1px rgba(10, 10, 10, 0.7);
     border-radius: 11px;
     margin-right: 5px;
+    -moz-appearance: textfield;
 }
 
 select {
     width: fit-content;
-    background-color: rgba(205, 235, 255, 0.6);
+    background-color: rgba(75, 75, 75, 0.7);
     text-align: center;
 }
 
@@ -98,32 +102,44 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .delete {
-    position: relative;
+    position: absolute;
     margin-top: 20px;
     width: auto;
-    height: 30px;
+    height: 25px;
     opacity: 0.9;
-    float: right;
     background-color: gray;
+    margin-left: 160px;
 }
 
 .delete img {
-    width: 20px;
-    margin-top: 5px;
+    width: 17px;
+    margin-top: 4px;
 }
 
 .delete:hover {
     margin-top: 20px;
     width: auto;
-    height: 30px;
+    height: 25px;
     opacity: 0.8;
-    float: right;
 }
 
-#origin {
-    position: fixed;
+#trame{
+    height: fit-content;
 }
 
-#trame {
-    margin-left: 270px;
+@media screen and (max-width: 780px)
+{
+    .emplacement{
+        display: grid;
+        grid-template-columns: auto auto;
+        width: auto;
+    }
+    #trame{
+        display: inline-block;
+    }
+    
+    .container{  
+        display: block;
+        text-align: center;
+    }
 }

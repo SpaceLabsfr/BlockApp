@@ -33,96 +33,107 @@ $actions = [    // val min, val max, unité, type d'action, action
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
     "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
     "Fin" => array(null,null,null,"setting",""),
-    "Si" => array("test1","test2",null,"control","if VAR == true:"),
-    "Sinon" => array(null,null,null,"control","else:"),
+    "Si" => array("test1","test2",null,"control","if VAR == true :"),
+    "Sinon" => array(null,null,null,"control","else :"),
     "Fin du Si" => array(null,null,null,"control"," "),
+    "Faire" => array(2,9,"fois","control","for i in range(VAR) :"),
+    "Fin du Faire" => array(null,null,null,"control"," "),
+    "Definir Variable à"=>(null,null,null,"variable","......")
 ];
 
 $nb_emplacements = 5;
 
 //$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
-$file = '/KDesir_Tests/projet.py';
+
 $client = '/KDesir_Tests/client-script.py';
-//$file = 'C:\wamp\www\BlockApp\projet.py';
+$file = 'C:\wamp\www\BlockApp\projet.py';
+// $file = '/KDesir_Tests/projet.py';
+
 ?>
 
 <body>
     <h2 class="maintitle">Application de développement Python en programmation par bloc</h2>
 
+    <div class='container'>
     <!-- Affichage des blocks à drag -->
-    <div class="emplacement" id="origin">
-        <?php 
-        $i = 100;
-        foreach($actions as $key => $value){
-            $i++;
-            ?>
-        <div id=<?=$i?> class=<?= $value[3] ?> draggable="true" ondragstart="return dragStart(event)">
-            <p class="action"><?= $key ?>
-            <?php
-            if($value[0] != null){
-                if($value[3] != "control"){
-                echo '<input type="number" min="'.$value[0].'" max="'.$value[1].'" value="1">'.$value[2];
-                }else{
-                 echo "<select><option value=$value[0]>$value[0]</option><option value=$value[1]>$value[1]</option></select>";
+        <div class="emplacement" id="origin">
+            <?php 
+            $i = 100;
+            foreach($actions as $key => $value){
+                $i++;
+                ?>
+            <div id=<?=$i?> class=<?= $value[3] ?> draggable="true" ondragstart="return dragStart(event)">
+                <p class="action"><?= $key ?>
+                <?php
+                if($value[0] != null){
+                    if(is_int($value[0]) && is_int($value[1])){
+                    echo '<input type="number" min="'.$value[0].'" max="'.$value[1].'" value="1">'.$value[2];
+                    }else{
+                    echo "<select><option value=$value[0]>$value[0]</option><option value=$value[1]>$value[1]</option></select>";
+                    }
                 }
-            }
+                ?>
+                </p>
+            </div>
+            <?php } ?>
+        </div>
+
+        <!-- Affichage des emplacements de drop -->
+        <div class="emplacement" id="trame">
+            <!--
+            <div class="bloc" id=2 ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+                <button class="delete" onclick="reset(2)">X</button>
+            </div>-->
+            <script type="text/javascript">
+                for (i = 1; i <= nb_emplacement; i++) {
+                    addBlock(i);
+                }
+            </script>
+        </div>
+
+        <div class="resultat">
+            <button class="submit" onclick="generate()">Valider</button>
+
+            <form method="POST" > <!-- action="/\\n" pour empêcher de re-exécuter lorsqu'on rafraîchit -->
+            <br/><input type="submit" name="sauvegarder" value="Exécuter" >
+            <br/><input type="submit" name="arreter" style="background-color: rgba(118, 50, 60);" value="Arrêt d'urgence" >
+            </form>
+
+            <?php 
+                if(isset($_POST['arreter'])) {
+                    echo shell_exec("sudo python3 client-arret-urgence.py"); //for debug
+                }
+                if(isset($_POST['sauvegarder'])) {
+                    $output = $_COOKIE['output'];
+                    $output = str_replace("<br/>","\n",$output);
+                    //$output = str_replace("\\n","\n",$output);
+                    $myfile = fopen($file, "w");
+                    fwrite($myfile, $output);
+                    fclose($myfile);
+
+                    //shell_exec('sudo python3 /KDesir_Tests/projet.py');
+                    echo shell_exec("sudo python3 $client 2>&1"); //for debug
+                    //echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
+                }
+                
             ?>
-            </p>
-        </div>
-        <?php } ?>
-    </div>
-
-    <!-- Affichage des emplacements de drop -->
-    <div class="emplacement" id="trame">
-        <!--
-        <div class="bloc" id=2 ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
-            <button class="delete" onclick="reset(2)">X</button>
-        </div>-->
-        <script type="text/javascript">
-            for (i = 1; i <= nb_emplacement; i++) {
-                addBlock(i);
-            }
-        </script>
-    </div>
-
-    <div class="resultat">
-    <button class="submit" onclick="generate()">Valider</button>
-
-    <form method="POST" > <!-- action="/\\n" pour empêcher de re-exécuter lorsqu'on rafraîchit -->
-    <br/><input type="submit" name="sauvegarder" value="Exécuter" >
-    <br/><input type="submit" name="arreter" style="background-color: rgba(118, 50, 60);" value="Arrêt d'urgence" >
-    </form>
-
-	<?php 
-        if(isset($_POST['arreter'])) {
-            echo shell_exec("sudo python3 client-arret-urgence.py"); //for debug
-        }
-		if(isset($_POST['sauvegarder'])) {
-			$output = $_COOKIE['output'];
-			$output = str_replace("<br/>","\n",$output);
-			//$output = str_replace("\\n","\n",$output);
-			$myfile = fopen($file, "w");
-			fwrite($myfile, $output);
-			fclose($myfile);
-
-			//shell_exec('sudo python3 /KDesir_Tests/projet.py');
-			echo shell_exec("sudo python3 $client 2>&1"); //for debug
-			//echo '<meta http-equiv="refresh" content="1; URL=blockapp.php" />';
-		}
+            <div class="section">
+                <div class="big">
+                    <p class="title">Résultats :</p>
+                    <p><span id="result">. . .</span></p>
+                </div>
+            </div>
         
-	?>
-    <div class="section">
-        <div class="big">
-            <p class="title">Résultats :</p>
-            <p><span id="result">. . .</span></p>
         </div>
-    </div>
-    
     </div>
 </body>
 
 
 <script type="text/javascript">
+
+    
+    const indented = ['Si','Sinon','Faire']
+
     // Reset du contenu des emplacements
     function reset(id) {
         //console.log(document.getElementById(id));
@@ -147,16 +158,13 @@ $client = '/KDesir_Tests/client-script.py';
         ev.dataTransfer.setDragImage(ev.target, 0, 0);
         return true;
     }
-
     function dragEnter(ev) {
         event.preventDefault();
         return true;
     }
-
     function dragOver(ev) {
         return false;
     }
-
     function dragDrop(ev) {
 
         event.preventDefault();
@@ -174,11 +182,6 @@ $client = '/KDesir_Tests/client-script.py';
             return false;
         }
 
-        //console.log(ev.target.parentNode.childElementCount)
-        //console.log(src)
-        //console.log(origin_id)
-        //console.log(ev.target.id)
-        //console.log(ev.target.childElementCount)
         if (ev.target.childElementCount == 1) {
             var copy = document.getElementById(src).cloneNode(true);
             copy.id = copy.id + "-copy";
@@ -198,6 +201,7 @@ $client = '/KDesir_Tests/client-script.py';
         return false;
     }
 
+
     // Génération du code Python selon les actions choisies
 
     function generate() {
@@ -206,77 +210,55 @@ $client = '/KDesir_Tests/client-script.py';
 
         indent = 0; // Défini le nombre d'espaces à indenter pour chaque ligne
 
-        element = document.getElementsByClassName('bloc');
-        //console.log(element)
-        //console.log("element.length" + element.length)
+        blocsAction = [...document.querySelectorAll('.bloc')];
+
         output = ""; // Code Python à ressortir
 
+        type_list = ["setting","movement","control"]
 
-        for (var i = 0; i < element.length; i++) {
-            //console.log(element[i]) // Liste des actions prises
+        for (var i = 0; i < blocsAction.length; i++) {
 
-            children = element[i].childNodes;
-            //console.log(children)
+            actionElement = blocsAction[i].querySelector('.action');
 
-            type_list = ["setting","movement","control"]
+            if(!actionElement) continue
 
-            for (var j = 0; j < children.length; j++) {
-                if (type_list.includes(children[j].className) ) {
+            // if the action is in a bloc without knew action type
+            if(!type_list.includes(actionElement.parentNode.className) ) continue            
 
-                    action = children[j].textContent.trim();
-                    /*console.log("Tout: "+action);
-                    console.log("Début: "+action.split(" ").slice(-1)[0]);*/
-                    if(action.split(" ").slice(-1)[0].length == 1 || action.split(" ")[0] == "Si"){ // Si on a un espace 
+            action = actionElement.childNodes[0].textContent.trim();
 
-                        if(typeof children[j].childNodes[1].childNodes[1] != "undefined"){
-                        value = children[j].childNodes[1].childNodes[1].value; // La valeur dans l'input
-                        } else{ value = null;}
-                        //console.log("Valeur:",value);
+            if(actionElement.childNodes[1]){
+                actionVar = actionElement.childNodes[1].value; // La valeur dans l'input
+            }else{ actionVar = null; }
+            
+            console.log("action : " + action)
+            console.log("actionVar : " + actionVar)
+            
+            // Ecriture du script 
+        
+            PythonScript = actions[action][4]; // Index du tableau
+            PythonScript = PythonScript.replace("VAR",actionVar); // attribution de la variable
 
-                        //actions_list.push(children[j].id)
-                        
-                        action = action.split(" ")[0];
-                        //console.log(action);
-                    }
-                    else{ 
-                        value = null;
-                    }
-                    
-                    console.log("action: " + action)
-                    PythonScript = actions[action][4]; // Index du tableau
+            if(action == "Sinon"){ indent -= 1;}
+            
+            PythonScript = PythonScript.replaceAll("<br/>","<br/>"+"---".repeat(indent)); // Ajout des espaces
 
-                    PythonScript = PythonScript.replace("VAR",value); // attribution de la variable
+            output += "---".repeat(indent) + PythonScript;    
+            output += "<br/>";
 
-                    if(action == "Sinon"){ indent -= 1;}
-                    
-
-                    PythonScript = PythonScript.replaceAll("<br/>","<br/>"+"---".repeat(indent)); // Ajout des espaces
-
-                    output += "---".repeat(indent) + PythonScript;    
-		    if (i < element.length -2) {
-                        output += "<br/>";
-		    }        
-
-
-                    if(action == "Si" || action == "Sinon"){
-                        indent += 1;
-                    }else if(action == "Fin du Si"){
-                        indent -= 1;
-                    }
-
-                    console.log("indent: "+indent)
-
-                    //actions_list.push(text);
-                }
+            if(indented.includes(action)){
+                indent += 1;
+            }else if(action == "Fin du Si" || action == "Fin du Faire"){
+                indent -= 1;
             }
+            // console.log("indent: "+indent)
         }
         
-        console.log(output.toString())
         output = output.replaceAll("---","\u0020\u0020\u0020");
 
         document.getElementById("result").innerHTML = output;
         document.cookie="output="+output.toString();
-        console.log(output.toString())
+        // console.log(output.toString())
 
     }
 
