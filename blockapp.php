@@ -38,7 +38,6 @@ $actions = [    // val min, val max, unité, type d'action, action
     "Fin du Si" => array(null,null,null,"control"," "),
     "Faire" => array(2,9,"fois","control","for i in range(VAR) :"),
     "Fin du Faire" => array(null,null,null,"control"," "),
-    "Definir Variable à"=>(null,null,null,"variable","......")
 ];
 
 $nb_emplacements = 5;
@@ -46,8 +45,8 @@ $nb_emplacements = 5;
 //$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
 
 $client = '/KDesir_Tests/client-script.py';
-$file = 'C:\wamp\www\BlockApp\projet.py';
-// $file = '/KDesir_Tests/projet.py';
+// $file = 'C:\wamp\www\BlockApp\projet.py';
+$file = '/KDesir_Tests/projet.py';
 
 ?>
 
