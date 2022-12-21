@@ -23,19 +23,19 @@
 // Définition des paramètres PHP 
 
 $actions = [    // val min, val max, unité, type d'action, action
-    "Démarrer" => array(null,null,null,"setting",""),
-    "Avancer" => array(1,9,"s","movement","car.throttle = -0.5<br/>time.sleep(VAR)"),
-    "Reculer" => array(1,9,"s","movement","car.throttle = 0.5<br/>time.sleep(VAR)"),
+    // "Démarrer" => array(null,null,null,"setting",""),
+    "Avancer" => array(null,null,null,"movement","car.throttle = -0.5"),
+    "Reculer" => array(null,null,null,"movement","car.throttle = 0.5"),
     "S'arrêter" => array(null,null,null,"movement","car.throttle = 0.001<br/>car.throttle = 0"),
     "Tourner à gauche" => array(null, null, null,"movement","car.steering = 1"),
     "Tourner à droite" => array(null, null, null,"movement","car.steering = -1"),
-    "Reset direction" => array(null, null, null,"movement","car.steering = 0.001<br/>car.steering = 0"),
+    "Aller tout droit" => array(null, null, null,"movement","car.steering = 0.001<br/>car.steering = 0"),
     "Tourner" => array(-35,35,"°","movement","car.steering = VAR/35"),
-    "Attendre" => array(1,9,"s","setting","time.sleep(VAR)"),
-    "Fin" => array(null,null,null,"setting",""),
-    "Si" => array("test1","test2",null,"control","if VAR == true :"),
-    "Sinon" => array(null,null,null,"control","else :"),
-    "Fin du Si" => array(null,null,null,"control"," "),
+    "Pendant" => array(1,9,"s","setting","time.sleep(VAR)"),
+    // "Fin" => array(null,null,null,"setting",""),
+    // "Si" => array("test1","test2",null,"control","if VAR == true :"),
+    // "Sinon" => array(null,null,null,"control","else :"),
+    // "Fin du Si" => array(null,null,null,"control"," "),
     "Faire" => array(2,9,"fois","control","for i in range(VAR) :"),
     "Fin du Faire" => array(null,null,null,"control"," "),
 ];
