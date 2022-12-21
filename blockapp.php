@@ -43,7 +43,7 @@ $actions = [    // val min, val max, unité, type d'action, action
 $nb_emplacements = 5;
 
 //$file = '/home/jetson/Desktop/KDesir_Tests/projet.py';
-$folder = "/KDesir_Tests//";
+$arretUrgence = "/KDesir_Tests/client-arret-urgence.py";
 $client = '/KDesir_Tests/client-script.py';
 // $file = 'C:\wamp\www\BlockApp\projet.py';
 $file = '/KDesir_Tests/projet.py';
@@ -99,8 +99,8 @@ $file = '/KDesir_Tests/projet.py';
             </form>
 
             <?php 
-                if(isset($_POST['arreter'])) {
-                    echo shell_exec("sudo python3 "+$folder+"client-arret-urgence.py"); //for debug
+                if(isset($_POST['arreter'])) { 
+                    echo shell_exec("sudo python3 "+$arretUrgence); //for debug
                 }
                 if(isset($_POST['sauvegarder'])) {
                     $output = $_COOKIE['output'];
